@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Ce site a pour but d'être utilisé au cours de la formatino Code Académie de Rennes. 
+Loin d'être un bloc de code complexe, il suffit simplement à désigner un apprenant aléatoirement-->
+<html>
+	<head>
+		<title>Random computer</title>
+		<meta charset='utf-8'>
+		<script type="text/javascript" src="script.js"></script>
+		<style type="text/css">
+		.displayBlock{
+			font-size:2em;
+			width:50vw;
+			height: 50vh;
+			margin : 0 auto;
+			padding-top:4em;
+		}
+		#result{
+			color:red;
+		}
+		</style>
+	</head>
+	<body>
+		<div class='displayBlock'>
+			Heureu.x.se élu.e : 
+			<span id='result'></span>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		/*
+			Expects aprpenants to have a sub array called data
+			Pick a random record in it
+			put it in html container "result"
+		*/
+		function choose(apprenants){
+			apprenants = apprenants.data;
+			console.log(apprenants);
+			var chosenOne = apprenants[Math.floor(Math.random()*apprenants.length)];
+			window.document.getElementById("result").innerHTML = chosenOne;
+		}
+
+
+		loadJSON("apprenants.json", choose);
+	</script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- Ce site a pour but d'être utilisé au cours de la formatino Code Académie de Rennes. 
+Loin d'être un bloc de code complexe, il suffit simplement à désigner un apprenant aléatoirement-->
+<html>
+	<head>
+		<title>Random groups</title>
+		<meta charset='utf-8'>
+		<script type="text/javascript" src="script.js"></script>
+		<style type="text/css">
+		.displayBlock{
+			font-size:2em;
+			width:50vw
+			margin : 0 auto;
+		}
+		#result{
+			color:blue;
+			font-size:1em;
+		}
+		</style>
+	</head>
+	<body>
+		<div class='displayBlock'>
+			
+			<div id='title'></div>
+			<div id='result'></div>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		/*
+			Expects apprnants to have a sub array called data
+			Pick nb random records in it
+			put it in html container "result"
+			then continue parsing records until no records left.
+		*/
+		function choose(apprenants){
+
+			var resultHTML='<table>';
+			var NB = 2;
+			var noErrorsFound = true;
+
+			var title = "Définition des groupes de "+NB;
+
+			apprenants = apprenants.data;
+			var cpt=1;
+
+			if(apprenants.length % NB != 0){
+				noErrorsFound = false;
+				title = "Invalid number of students("+apprenants.length+") for creating groups of "+NB;
+			}
+			while(apprenants.length > 0 && noErrorsFound){
+				var group = [];
+				resultHTML +="<tr><td>"+cpt+") </td>";
+				for(var i=0; i<NB; i++){
+					var randomN= Math.floor(Math.random()*apprenants.length);
+					resultHTML +="<td>"+apprenants[randomN]+((i<NB-1)?" - ":"")+"</td>";
+					apprenants.splice(randomN, 1);
+				}
+				resultHTML +="</tr>";
+				cpt++;
+
+			}
+			resultHTML +="</table>";
+
+			window.document.getElementById("title").innerHTML = title;
+			window.document.getElementById("result").innerHTML = resultHTML;
+		}
+
+
+		loadJSON("apprenants.json", choose);
+	</script>
+</html>
